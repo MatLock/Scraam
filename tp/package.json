@@ -1,0 +1,14 @@
+{
+  "name": "scraam",
+  "version": "1.0.0",
+  "description": "Tp de practicas de desarrollo de software",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "MatLock",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

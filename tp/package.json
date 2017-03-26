@@ -4,11 +4,25 @@
   "description": "Tp de practicas de desarrollo de software",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "start": "babel-node -- src/backend/app.js"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   },
   "author": "MatLock",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2"
+    "babel": "^6.23.0",
+    "babel-cli": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0"
   }
 }

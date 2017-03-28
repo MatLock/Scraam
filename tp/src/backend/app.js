@@ -7,6 +7,7 @@ import routes from './routes/routes.js'
 
 mongoose.connect('mongodb://localhost/news')
 
+app.use(express.static(__dirname + "/../../dist/frontend"));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(routes);

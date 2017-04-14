@@ -1,0 +1,10 @@
+<div>
+    <div align="center">Milestones</div>
+    <div class="row" template="ngFor let m of milestones">
+        {{m.nombre}}
+    </div>
+    <button type="button" class="btn btn-primary"
+        (click)="onCrearMilestone()">
+          Crear Milestone
+      </button>
+</div>

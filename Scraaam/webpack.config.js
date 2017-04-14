@@ -25,12 +25,12 @@ module.exports = {
         template: './src/frontend/index.html',
         inject: 'body',
         minify: false
-      }
-    ),
-    new CopyWebpackPlugin([{
-        from: './src/frontend/assets',
+      }),
+      new CopyWebpackPlugin([{
+        from: 'src/frontend/assets',
         to: 'assets'
-        }])],
+      }])
+    ],
 
     devtool: '#inline-source-map'
 }

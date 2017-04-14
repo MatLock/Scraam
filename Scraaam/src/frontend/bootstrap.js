@@ -5,19 +5,22 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic'
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { FormsModule } from '@angular/forms'
-import { HttpModule } from '@angular/http'
-import { RouterModule }  from '@angular/router';
 import { ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
+import { HttpModule } from '@angular/http'
+import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 
-let router = RouterModule.forRoot([
+import { RouterModule }  from '@angular/router'
+
+/*let router = RouterModule.forRoot([
   { path: '', redirectTo: '/proyectos', pathMatch: 'full' }
-], { useHash: true })
+], { useHash: true })*/
 
 @NgModule({
-	imports: [router, BrowserModule, FormsModule, HttpModule ],
+	imports: [/*router,*/ BrowserModule, FormsModule, HttpModule, BsDropdownModule.forRoot() ],
   	styleUrls: ['./style.css'],
   	declarations: [
     AppComponent

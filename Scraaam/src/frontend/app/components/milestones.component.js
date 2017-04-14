@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export default class MilestoneComponent {
 
+
+  onCrearMilestone() {
+    // do nothing
+  }
+
+
 }

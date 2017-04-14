@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export default class PostService {
+export default class Service {
 
 
   constructor(http) {
@@ -26,4 +26,4 @@ export default class PostService {
 
 
 
-PostService.parameters = [Http]
+Service.parameters = [Http]

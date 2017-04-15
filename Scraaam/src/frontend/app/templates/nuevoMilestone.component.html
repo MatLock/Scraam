@@ -1,0 +1,16 @@
+<form>
+  <div class="form-group">
+    <label>Nombre:</label>
+    <input type="text" class="form-control" [(ngModel)]="milestone.nombre" aria-describedby="emailHelp" placeholder="Nombre">
+    <small id="emailHelp" class="form-text text-muted">Nuevo Milestone</small>
+    <label >Descripcion:</label>
+    <input type="text" class="form-control" [(ngModel)]="milestone.descripcion" placeholder="Descripcion">
+  </div>
+  <div align="center">
+    <button type="button" class="btn btn-primary"
+        (click)="onCrearMilestone()">
+          Crear Milestone
+    </button>
+  </div>
+</form>
+<router-outlet></router-outlet>

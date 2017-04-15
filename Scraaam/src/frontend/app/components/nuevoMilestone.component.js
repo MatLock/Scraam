@@ -5,25 +5,27 @@ import { ActivatedRoute,ROUTER_DIRECTIVES } from '@angular/router';
 import Service from '../services/services';
 
 @Component({
-  selector: 'milestones',
+  selector: 'nuevoMilestone',
   inputs: [ 'proyecto' ],
   providers: [ Service ],
   directives: [ROUTER_DIRECTIVES],
-  template: require('../templates/milestones.component.html')
+  template: require('../templates/nuevoMilestone.component.html')
 })
-export default class MilestoneComponent {
+export default class NuevoMilestoneComponent {
 
 
   constructor(service,route) {
+    this.route = route
+    this.nombre = '';
     this.service = service
-    this.router = route
+    this.milestone = {};
   }
 
   onCrearMilestone() {
-    this.router.navigate([],this.proyecto);
+    alert("comming son")
   }
 
 
 }
 
-MilestoneComponent.parameters = [Service,ActivatedRoute]
+NuevoMilestoneComponent.parameters = [Service,ActivatedRoute]

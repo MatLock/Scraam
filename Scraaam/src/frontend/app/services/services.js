@@ -14,32 +14,23 @@ export default class Service {
              .catch(err => console.log(err))
    }
 
-   /*
-   verProyecto(id) {
-    let proyecto = {};
-    this.http.get(`/proyectos/${id}`)
-            .map(response =>response.json()).subscribe(data => proyecto = data);
-    return proyecto;
-  }*/
-
-  /*verProyecto(id) {
-    let x = undefined;
-    this.http.get(`/proyectos/${id}`).toPromise()
-                    .then(response => response.json())
-                    .catch(err => console.log(err))
-                        .then(proyecto => {
-                          x = proyecto
-                          console.log(x);
-                        })
-                        .catch( err => console.log(err));
-    return x;
-  }*/
-
   verProyecto(id) {
     return this.http.get(`/proyectos/${id}`).toPromise()
                     .then(response => response.json())
                     .catch(err => console.log(err))
-  }                  
+  }
+
+
+  crearProyecto(proyecto){
+    return this.http.post('/proyectos', JSON.stringify(proyecto),{ headers:{'Content-Type': 'application/json'}})
+                    .toPromise()
+                      .then(response => response.json())
+                      .catch(err => console.log(err));
+  }
+
+  agregarProyecto(proyecto){
+    this.proyectos.push(proyecto);
+  }
 
 }
 

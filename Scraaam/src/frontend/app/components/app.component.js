@@ -1,22 +1,21 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute,ROUTER_DIRECTIVES,Router } from '@angular/router';
 
 import Service from '../services/services';
-import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view',
   inputs: ['proyectos'],
   providers: [Service],
+  directives: [ROUTER_DIRECTIVES],
   template: require('../templates/app.component.html')
-  //directives: [ModalDirective]
 })
 
 export default class AppComponent {
-  @ViewChild('childModal') childModal;
-  //@ViewChild('childModal')childModal
 
-  constructor(service) {
+  constructor(service,router) {
 		this.service = service
+    this.router = router
 		this.proyectos = this.service.proyectos
     this.proyecto = {}
 	}
@@ -30,10 +29,10 @@ export default class AppComponent {
         .catch(err => console.log(err))
 	}
 
-  crearProyecto() {
-    this.childModal.show();
-  }
+  //crearProyecto() {
+  //  this.router.navigate(["nuevoProyecto"]);
+  //}
 
 }
 
-AppComponent.parameters = [Service]
+AppComponent.parameters = [Service,Router]

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 
+import Service from '../services/services';
+
 @Component({
   selector: 'milestones',
-  inputs: [ 'milestones' ],
+  inputs: [ 'proyecto' ],
   providers: [ Service ],
-  templateUrl: '../templates/milestones.component.html'
+  template: require('../templates/milestones.component.html')
 })
 export default class MilestoneComponent {
 
@@ -13,7 +15,7 @@ export default class MilestoneComponent {
   }
 
   onCrearMilestone() {
-    // do nothing
+    alert("comming son")
   }
 
 

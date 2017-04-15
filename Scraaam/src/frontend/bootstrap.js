@@ -12,6 +12,7 @@ import { HttpModule } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
+import MilestoneComponent from './app/components/milestones.component'
 
 import { RouterModule }  from '@angular/router'
 
@@ -23,7 +24,8 @@ import { RouterModule }  from '@angular/router'
 	imports: [/*router,*/ BrowserModule, FormsModule, HttpModule, BsDropdownModule.forRoot() ],
   	styleUrls: ['./style.css'],
   	declarations: [
-    AppComponent
+    AppComponent,
+		MilestoneComponent
   ],
   bootstrap: [ AppComponent ]
 })

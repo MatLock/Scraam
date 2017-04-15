@@ -22,10 +22,10 @@ export default class Service {
     return proyecto;
   }*/
 
-  verProyecto(id) {
+  /*verProyecto(id) {
     let x = undefined;
     this.http.get(`/proyectos/${id}`).toPromise()
-                    .then(response => response.json())                        
+                    .then(response => response.json())
                     .catch(err => console.log(err))
                         .then(proyecto => {
                           x = proyecto
@@ -33,8 +33,13 @@ export default class Service {
                         })
                         .catch( err => console.log(err));
     return x;
-  }
+  }*/
 
+  verProyecto(id) {
+    return this.http.get(`/proyectos/${id}`).toPromise()
+                    .then(response => response.json())
+                    .catch(err => console.log(err))
+  }                  
 
 }
 

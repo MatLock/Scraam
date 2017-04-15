@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import Service from '../services/services';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-view',
   inputs: ['proyectos'],
   providers: [Service],
   template: require('../templates/app.component.html')
+  //directives: [ModalDirective]
 })
-export default class AppComponent {
 
-	constructor(service) {
+export default class AppComponent {
+  @ViewChild('childModal') childModal;
+  //@ViewChild('childModal')childModal
+
+  constructor(service) {
 		this.service = service
 		this.proyectos = this.service.proyectos
     this.proyecto = {}
@@ -24,6 +29,10 @@ export default class AppComponent {
         })
         .catch(err => console.log(err))
 	}
+
+  crearProyecto() {
+    this.childModal.show();
+  }
 
 }
 

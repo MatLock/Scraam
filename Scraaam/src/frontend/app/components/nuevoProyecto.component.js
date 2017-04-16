@@ -22,11 +22,7 @@ export default class NuevoProyectoComponent {
   onCrearProyecto() {
     let pr = {nombre: this.nombre}
     this.service.crearProyecto(pr)
-        .then(idPr => {
-          pr._id=idPr
-          this.service.agregarProyecto(pr)
-          this.route.navigate([''])
-        })
+        .then(_ => this.route.navigate(['']))
         .catch(err => console.log(err));
   }
 

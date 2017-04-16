@@ -16,12 +16,13 @@ import AppComponent from './app/components/app.component'
 import MilestoneComponent from './app/components/milestones.component'
 import NuevoMilestoneComponent from './app/components/nuevoMilestone.component'
 import NuevoProyectoComponent from './app/components/nuevoProyecto.component'
+import Service from './app/services/services'
 
 import { RouterModule }  from '@angular/router'
 
 let router = RouterModule.forRoot([
-  { path: '', redirectTo: '', pathMatch: 'full' },
-	{ path: 'nuevoMilestone', component: NuevoMilestoneComponent },
+  { path: '', pathMatch: 'full' ,component: AppComponent, useAsDefault:true},
+	{ path: 'milestones/:idProyecto', component: MilestoneComponent },
 	{ path: 'nuevoProyecto', component: NuevoProyectoComponent }
 ], { useHash: true })
 
@@ -35,6 +36,7 @@ let router = RouterModule.forRoot([
 		NuevoMilestoneComponent,
 		NuevoProyectoComponent
   ],
+  providers: [Service],
   bootstrap: [ AppComponent ]
 })
 class AppModule { }

@@ -9,6 +9,7 @@ export default class Service {
   constructor(http) {
      this.http = http
      this.proyectos = []
+     this.proyectoSeleccionado = {};
      this.http.get("/proyectos").toPromise()
              .then(response => this.proyectos.push(...response.json()))
              .catch(err => console.log(err))
@@ -30,8 +31,14 @@ export default class Service {
                       .catch(err => console.log(err));
   }
 
-  agregarProyecto(proyecto){
-    this.proyectos.push(proyecto);
+  crearMilestone(milestone){
+    return this.http.put(`/proyectos/${this.proyectoSeleccionado._id}`, JSON.stringify(milestone),{ headers:{'Content-Type': 'application/json'}})
+                    .toPromise()
+                      .then(response => {
+                        milestone._id=response;
+                        this.proyectoSeleccionado.milestones.push(milestone);
+                       })
+                      .catch(err => console.log(err));
   }
 
 }

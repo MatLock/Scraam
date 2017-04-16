@@ -7,7 +7,6 @@ import Service from '../services/services';
 @Component({
   selector: 'nuevoMilestone',
   inputs: [ 'proyecto' ],
-  providers: [ Service ],
   directives: [ROUTER_DIRECTIVES],
   template: require('../templates/nuevoMilestone.component.html')
 })
@@ -22,7 +21,8 @@ export default class NuevoMilestoneComponent {
   }
 
   onCrearMilestone() {
-    alert("comming son")
+    this.service.crearMilestone(this.milestone);
+    this.milestone = {};
   }
 
 

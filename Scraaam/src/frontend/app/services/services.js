@@ -24,7 +24,9 @@ export default class Service {
   crearProyecto(proyecto){
     return this.http.post('/proyectos', JSON.stringify(proyecto),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
-                      .then(response => response.json())
+                      .then(response => {
+                        proyecto._id = response;
+                        this.proyectos.push(proyecto);})
                       .catch(err => console.log(err));
   }
 

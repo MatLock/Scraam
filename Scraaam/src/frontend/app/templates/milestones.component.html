@@ -3,9 +3,14 @@
     <div class="row" *ngFor="let m of proyecto.milestones">
         {{m.nombre}}
     </div>
+
     <button type="button" class="btn btn-primary"
-        (click)="onCrearMilestone()">
+        [routerLink]="['/nuevoMilestone']">
           Crear Milestone
     </button>
+    <!--<button type="button" class="btn btn-primary"
+        (click)="onCrearMilestone()">
+          Crear Milestone
+    </button>-->
 </div>
 <router-outlet></router-outlet>

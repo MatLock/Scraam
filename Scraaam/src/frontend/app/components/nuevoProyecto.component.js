@@ -24,6 +24,7 @@ export default class NuevoProyectoComponent {
     this.service.crearProyecto(pr)
         .then(idPr => {
           pr._id=idPr
+          //Al inspeccionar idPr, es undefined!!
           this.service.agregarProyecto(pr)
           this.route.navigate([''])
         })

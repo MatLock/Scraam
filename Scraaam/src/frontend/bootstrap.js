@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms'
 import { ButtonsModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
+import { CardComponent } from 'ng2-bootstrap-card/ng2-bootstrap-card';
 
 import { HttpModule } from '@angular/http'
 import 'rxjs/add/operator/toPromise'
@@ -38,7 +39,8 @@ let router = RouterModule.forRoot([
 		NuevoMilestoneComponent,
 		NuevoProyectoComponent,
     TareaComponent,
-    NuevaTareaComponent
+    NuevaTareaComponent,
+    CardComponent
   ],
   providers: [ Service ],
   bootstrap: [ AppComponent ]

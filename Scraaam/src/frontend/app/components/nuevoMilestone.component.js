@@ -21,7 +21,8 @@ export default class NuevoMilestoneComponent {
   }
 
   onCrearMilestone() {
-    this.service.crearMilestone(this.milestone);
+    console.log(this.proyecto);
+    this.service.crearMilestone(this.milestone,this.proyecto);
     this.milestone = {};
   }
 

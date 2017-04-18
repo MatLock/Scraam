@@ -18,6 +18,11 @@ milestoneRouter.param('milestone', (req, res, next, value) => {
     .catch(next);
 });
 
+milestoneRouter.get('/milestones/:milestone', (req, res, next) => {
+     res.json(req.milestone)
+});
+
+
 
 milestoneRouter.put('/milestones/:milestone/:comentario', (req, res, next) => {
     const milestone = req.milestone;
@@ -27,7 +32,7 @@ milestoneRouter.put('/milestones/:milestone/:comentario', (req, res, next) => {
       .catch(next);
 });
 
-milestoneRouter.put('/milestones/:milestone/:tarea', (req, res, next) => {
+milestoneRouter.put('/milestones/:milestone', (req, res, next) => {
 
     const milestone = req.milestone;
     const tarea = milestone.agregarTarea(req.body);

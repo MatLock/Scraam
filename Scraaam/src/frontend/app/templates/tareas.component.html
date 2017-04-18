@@ -2,12 +2,16 @@
 <div style="margin-top: 60px;">
   <div class="row">
     <div class="col-sm-4">
+      <div align="center">
+          <label>{{milestone.nombre}}</label>
+          <label>Tareas -> {{milestone.tareas.length}}</label>
       <div>
-          <div align="center">Tareas</div>
+      <div>
+        <div align="center">Tareas</div>
           <div class="row" *ngFor="let t of milestone.tareas">
               {{t.descripcion}}
           </div>
-            <nuevaTarea></nuevaTarea>
+          <nuevaTarea [milestone]="milestone" ></nuevaTarea>
       </div>
     </div>
   </div>

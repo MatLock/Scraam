@@ -20,16 +20,8 @@ export default class AppComponent {
 	}
 
 	verProyecto(idProyecto){
-		this.service.verProyecto(idProyecto)
-        .then(proyecto => {
-          this.proyecto = proyecto
-          this.service.nuevoMilestoneVisible = false;
-          this.service.proyectoSeleccionado = this.proyecto;
-          console.log(this.service.proyectoSeleccionado);
-          // PREGUNTAR COMO VERGA PASAR UN OBJECTO COMO PARAMETRO A UNA URL,
-          this.router.navigate(['/milestones',this.service.proyectoSeleccionado._id]);
-        })
-        .catch(err => console.log(err))
+		  this.service.nuevoMilestoneVisible = false;
+      this.router.navigate(['/milestones',idProyecto]);
 	}
 
 }

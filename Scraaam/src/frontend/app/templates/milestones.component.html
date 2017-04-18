@@ -2,13 +2,19 @@
 <div style="margin-top: 60px;">
   <div class="row">
     <div class="col-sm-6">
-      <nuevoMilestone [hidden] ="!service.nuevoMilestoneVisible" ></nuevoMilestone>
+      <nuevoMilestone [proyecto]="proyecto" [hidden] ="!nuevoMilestoneVisible"></nuevoMilestone>
+      <tareas [milestone]="milestoneSeleccionada" [hidden] ="!tareasVisible"></tareas>
     </div>
     <div class="col-sm-4">
       <div>
           <div align="center">Milestones</div>
-          <div class="row" *ngFor="let m of proyecto.milestones">
-              {{m.nombre}}
+            <div class="row" *ngFor="let m of proyecto.milestones">
+              <div style=" border: 2px solid red;border-radius: 12px;">
+                <p align="center" class="card-text">{{m.nombre}}</p>
+                <div align="right">
+                  <button class="btn btn-warning" (click)=onVerTareas(m)>VER TAREAS</button>
+                </div>
+            </div>
           </div>
           <button type="button" class="btn btn-primary"
               (click)="onCrearMilestone()">

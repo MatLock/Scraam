@@ -9,7 +9,6 @@ export default class Service {
   constructor(http) {
      this.http = http
      this.proyectos = []
-     this.proyectoSeleccionado = {};
      this.milestoneSeleccionado = {};
      this.http.get("/proyectos").toPromise()
              .then(response => this.proyectos.push(...response.json()))
@@ -32,23 +31,30 @@ export default class Service {
                       .catch(err => console.log(err));
   }
 
-  crearMilestone(milestone){
-    return this.http.put(`/proyectos/${this.proyectoSeleccionado._id}`, JSON.stringify(milestone),{ headers:{'Content-Type': 'application/json'}})
+  crearMilestone(milestone,proyecto){
+    return this.http.put(`/proyectos/${proyecto._id}`, JSON.stringify(milestone),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
                         milestone._id=response;
-                        this.proyectoSeleccionado.milestones.push(milestone);
+                        proyecto.milestones.push(milestone);
+                      })
+                      .catch(err => console.log(err));
+  }
+
+  crearTarea(tarea,milestone){
+    return this.http.put(`/milestones/${milestone._id}`, JSON.stringify(tarea),{ headers:{'Content-Type': 'application/json'}})
+                    .toPromise()
+                      .then(response => {
+                        tarea._id = response;
+                        milestone.tareas.push(tarea);
                        })
                       .catch(err => console.log(err));
   }
 
-  crearTarea(tarea){
-    return this.http.put(`/milestones/${this.milestoneSeleccionado._id}`, JSON.stringify(tarea),{ headers:{'Content-Type': 'application/json'}})
+  obtenerTareasDe(milestone){
+    this.http.get(`/milestones/${milestone._id}`,{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
-                      .then(response => {
-                        tarea._id = response;
-                        this.milestoneSeleccionado.tareas.push(tarea);
-                       })
+                      .then(response => milestone.tareas = response.json().tareas)
                       .catch(err => console.log(err));
   }
 

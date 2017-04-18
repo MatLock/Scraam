@@ -18,8 +18,8 @@ export default class NuevaTareaComponent {
     this.tarea = {};
   }
 
-  onCrearMilestone() {
-    this.service.crearMilestone(this.tarea);
+  onCrearTarea() {
+    this.service.crearTarea(this.tarea,this.milestone);
     this.tarea = {};
   }
 }

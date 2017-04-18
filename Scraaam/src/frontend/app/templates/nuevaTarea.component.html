@@ -1,0 +1,17 @@
+<div align="center" style="margin-top: 60px;">
+  <div class="form-group">
+      <input type="text"
+        name="descripcion"
+        class="form-control"
+        [(ngModel)]="tarea.descripcion"
+        placeholder="Crear">
+  </div>
+  <div align="center">
+    <button type="button"
+      class="btn btn-primary"
+      (click)="onCrearTarea()">
+      Crear Tarea
+    </button>
+  </div>
+</div>
+<router-outlet></router-outlet>

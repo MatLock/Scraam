@@ -1,0 +1,15 @@
+
+<div style="margin-top: 60px;">
+  <div class="row">
+    <div class="col-sm-4">
+      <div>
+          <div align="center">Tareas</div>
+          <div class="row" *ngFor="let t of milestone.tareas">
+              {{t.descripcion}}
+          </div>
+            <nuevaTarea></nuevaTarea>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

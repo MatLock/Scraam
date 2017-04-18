@@ -16,6 +16,8 @@ import AppComponent from './app/components/app.component'
 import MilestoneComponent from './app/components/milestones.component'
 import NuevoMilestoneComponent from './app/components/nuevoMilestone.component'
 import NuevoProyectoComponent from './app/components/nuevoProyecto.component'
+import TareaComponent from './app/components/tareas.component'
+import NuevaTareaComponent from './app/components/nuevaTarea.component'
 import Service from './app/services/services'
 
 import { RouterModule }  from '@angular/router'
@@ -34,9 +36,11 @@ let router = RouterModule.forRoot([
     AppComponent,
 		MilestoneComponent,
 		NuevoMilestoneComponent,
-		NuevoProyectoComponent
+		NuevoProyectoComponent,
+    TareaComponent,
+    NuevaTareaComponent
   ],
-  providers: [Service],
+  providers: [ Service ],
   bootstrap: [ AppComponent ]
 })
 class AppModule { }

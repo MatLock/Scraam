@@ -1,29 +1,25 @@
 import mongoose from 'mongoose'
 
+import Epic from '../models/Epic.js'
 import Tarea from '../models/Tarea.js'
 
 // Mongoose models and schemas
 const milestoneSchema = new mongoose.Schema({
   nombre: String,
-  descripcion: String,
-  comentarios: [String],
-  tareas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tarea' }]
+  epics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Epic' }]
 })
 
-milestoneSchema.methods.agregarComentario = function(c) {
-  let comentario = new Comentario(m);
-  this.comentarios.push(comentario);
+milestoneSchema.methods.agregarComentario = function(comentario) {
+  this.epics[0].push(comentario);
+  return this.epics[0];
 }
 
-milestoneSchema.methods.agregarTarea = function(t) {
-  let tarea = new Tarea(t);
-  this.tareas.push(tarea);
-  return tarea;
+milestoneSchema.methods.agregarEpic = function(descripcion){
+  let epic = new Epic();
+  epic.descripcion = descripcion;
+  return epic;
 }
 
-milestoneSchema.methods.editarComentario = function(d) {
-  this.descripcion = d;
-}
 
 
 const Milestone = mongoose.model('Milestone', milestoneSchema)

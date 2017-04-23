@@ -15,6 +15,21 @@ export default class TareaComponent {
     this.service = service
     this.router = route
     this.actRoute = activateRoute
+    this.totalTareas = 0;
+  }
+
+  contarTareas(evt){
+    var totalTareas = 0;
+    if(this.milestone){
+      this.milestone.epics.forEach(epic => {
+          totalTareas += epic.tareas.length;
+      });
+      this.totalTareas = totalTareas;
+    }
+  }
+
+  ngOnInit(){
+    this.contarTareas();
   }
 
 

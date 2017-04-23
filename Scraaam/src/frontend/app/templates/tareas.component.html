@@ -2,16 +2,20 @@
 <div style="margin-top: 60px;">
   <div class="row">
     <div class="col-sm-4">
-      <div align="center">
-          <label>{{milestone.nombre}}</label>
-          <label>Tareas -> {{milestone.tareas.length}}</label>
+      <div align="center" *ngIf="milestone">
+          <div class="row">
+            <label>Milestone -> {{milestone.nombre}}</label>
+          </div>
+          <div>
+            <label>Total de Tareas -> {{totalTareas}}</label>
+          </div>
       <div>
       <div>
         <div align="center">Tareas</div>
-          <div class="row" *ngFor="let t of milestone.tareas">
+          <div class="row" *ngFor="let t of milestone.epics[0].tareas">
               {{t.descripcion}}
           </div>
-          <nuevaTarea [milestone]="milestone" ></nuevaTarea>
+          <nuevaTarea *ngIf="milestoneSeleccionada" [milestone]="milestone" (eventoRefresco)="contarTareas($event)" ></nuevaTarea>
       </div>
     </div>
   </div>

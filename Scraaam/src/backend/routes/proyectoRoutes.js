@@ -1,6 +1,7 @@
 import express from 'express'
 
 import Proyecto from '../models/Proyecto.js'
+import Epic from '../models/Epic.js'
 
 let proyectoRouter = express.Router()
 
@@ -44,14 +45,19 @@ proyectoRouter.get('/proyectos/:proyecto', (req, res, next) => {
 
 proyectoRouter.put('/proyectos/:proyecto', (req, res, next) => {
     const proyecto = req.proyecto;
-    const milestone = proyecto.agregarMilestone(req.body);
+    const milestone = proyecto.agregarMilestone(req.body.nombre);
+    const epic = milestone.agregarEpic(req.body.descripcion)
 
-    milestone.save()
+    epic.save()
       .then( _ => {
-        proyecto.save()
-          .then( _ => res.json(milestone.id))
-          .catch(next);
-      })
+        milestone.epics.push(epic);
+        milestone.save()
+          .then( _ => {
+            proyecto.save()
+              .then( _ => res.json(milestone.id))
+              .catch(next);
+              })
+          .catch(next)})
       .catch(next);
 });
 

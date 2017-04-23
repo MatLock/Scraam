@@ -9,7 +9,6 @@ export default class Service {
   constructor(http) {
      this.http = http
      this.proyectos = []
-     this.milestoneSeleccionado = {};
      this.http.get("/proyectos").toPromise()
              .then(response => this.proyectos.push(...response.json()))
              .catch(err => console.log(err))
@@ -26,7 +25,7 @@ export default class Service {
     return this.http.post('/proyectos', JSON.stringify(proyecto),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
-                        proyecto._id = response;
+                        proyecto._id = response.json();
                         this.proyectos.push(proyecto);})
                       .catch(err => console.log(err));
   }
@@ -46,7 +45,7 @@ export default class Service {
                     .toPromise()
                       .then(response => {
                         tarea._id = response;
-                        milestone.tareas.push(tarea);
+                        milestone.epics[0].tareas.push(tarea);
                        })
                       .catch(err => console.log(err));
   }
@@ -54,7 +53,9 @@ export default class Service {
   obtenerTareasDe(milestone){
     this.http.get(`/milestones/${milestone._id}`,{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
-                      .then(response => milestone.tareas = response.json().tareas)
+                      .then(response => {
+                        milestone.epics = response.json().epics
+                      })
                       .catch(err => console.log(err));
   }
 

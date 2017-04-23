@@ -1,17 +1,27 @@
 import express from 'express'
 
 import Milestone from '../models/Milestone.js'
+import Epic from '../models/Epic.js'
+import Tarea from '../models/Tarea.js'
 
 let milestoneRouter = express.Router()
 
 // MIDDLEWARE DE MILESTONES
 milestoneRouter.param('milestone', (req, res, next, value) => {
   Milestone.findById(value)
-    .populate("tareas")
+    .populate({
+        path:'epics',
+        model:'Epic',
+        populate:{
+          path:'tareas',
+          model:'Tarea'
+        }
+    })
     .then(milestone => {
       if (! milestone ) {
         throw new Error(`Milestone no encontrado ${value}`);
       }
+      milestone.epics.forEach(epic => !epic.tareas ? epic.tareas = [] : epic);
       req.milestone = milestone;
       next();
     })
@@ -22,26 +32,23 @@ milestoneRouter.get('/milestones/:milestone', (req, res, next) => {
      res.json(req.milestone)
 });
 
-
-
-milestoneRouter.put('/milestones/:milestone/:comentario', (req, res, next) => {
-    const milestone = req.milestone;
-    milestone.agregarComentario(req.params.comentario);
-    milestone.save()
-      .then(res.json(milestone.id))
-      .catch(next);
-});
-
 milestoneRouter.put('/milestones/:milestone', (req, res, next) => {
 
     const milestone = req.milestone;
-    const tarea = milestone.agregarTarea(req.body);
+    const tarea = new Tarea(req.body);
 
     tarea.save()
       .then( _ => {
-        milestone.save()
-          .then( _ => res.json(tarea.id))
-          .catch(next);
+        milestone.epics[0].tareas.push(tarea)
+        milestone.epics[0].save()
+          .then( _ => {
+              milestone.save()
+                .then( _ => {
+                    res.json(tarea._id)
+                  })
+                .catch(next)
+              })
+          .catch(next)
       })
       .catch(next);
 });
@@ -49,8 +56,8 @@ milestoneRouter.put('/milestones/:milestone', (req, res, next) => {
 milestoneRouter.post('/milestones/:milestone/:descripcion', (req, res, next) => {
 
     const milestone = req.milestone;
-    milestone.editarComentario(req.params.descripcion);
-    milestone.save();
+    const epicModificada = milestone.editarComentario(req.params.descripcion);
+    epicModificada.save()
     res.end();
 });
 

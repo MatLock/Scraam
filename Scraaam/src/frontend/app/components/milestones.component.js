@@ -7,7 +7,6 @@ import Service from '../services/services';
 @Component({
   selector: 'milestones',
   directives: [ROUTER_DIRECTIVES],
-  outputs : ['evento'],
   template: require('../templates/milestones.component.html')
 })
 export default class MilestoneComponent {
@@ -18,8 +17,7 @@ export default class MilestoneComponent {
     this.router = route
     this.actRoute = activateRoute
     this.proyecto = {}
-    this.milestoneSeleccionada = {tareas:[]};
-    this.evento =  new EventEmitter();
+    //this.milestoneSeleccionada = {epics:[{tareas:[]}]};
     this.nuevoMilestoneVisible =false;
     this.tareasVisible =false;
   }
@@ -44,8 +42,7 @@ export default class MilestoneComponent {
     this.tareasVisible=true;
     this.nuevoMilestoneVisible = false;
     this.milestoneSeleccionada = m;
-    this.service.obtenerTareasDe(this.milestoneSeleccionada)
-    //this.evento.emit('This is some value from children');
+    this.service.obtenerTareasDe(this.milestoneSeleccionada);
   }
 
 

@@ -15,8 +15,6 @@ import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 import MilestoneComponent from './app/components/milestones.component'
-import NuevoMilestoneComponent from './app/components/nuevoMilestone.component'
-import NuevoProyectoComponent from './app/components/nuevoProyecto.component'
 import TareaComponent from './app/components/tareas.component'
 import NuevaTareaComponent from './app/components/nuevaTarea.component'
 import Service from './app/services/services'
@@ -25,19 +23,16 @@ import { RouterModule }  from '@angular/router'
 
 let router = RouterModule.forRoot([
   { path: '', pathMatch: 'full' ,component: AppComponent, useAsDefault:true},
-	{ path: 'milestones/:idProyecto', component: MilestoneComponent },
-	{ path: 'nuevoProyecto', component: NuevoProyectoComponent }
+	{ path: 'milestones/:idProyecto', component: MilestoneComponent }
 ], { useHash: true })
 
 @NgModule({
-	imports: [router, BrowserModule, FormsModule, HttpModule,
+	imports: [router, BrowserModule, FormsModule, ModalModule.forRoot(), HttpModule,
 		BsDropdownModule.forRoot()],
   	styleUrls: ['./style.css'],
   	declarations: [
     AppComponent,
 		MilestoneComponent,
-		NuevoMilestoneComponent,
-		NuevoProyectoComponent,
     TareaComponent,
     NuevaTareaComponent,
     CardComponent

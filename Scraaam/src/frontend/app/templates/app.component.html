@@ -11,13 +11,48 @@
           	<a class="dropdown-item" (click)="verProyecto(proyecto._id)">{{proyecto.nombre}}</a>
           </li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/nuevoProyecto']">CREAR PROYECTO</a>
+          <li role="menuitem"><a class="dropdown-item" (click)="showChildModal()">CREAR PROYECTO</a>
           </li>
         </ul>
       </div>
   </div>
 </nav>
-<base href="/"/>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Nuevo Proyecto</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input name="nombreProyecto"
+            type="text"
+            class="form-control"
+            [(ngModel)]="nombreProyecto"
+            placeholder="Ingrese nombre" required>
+        </div>
+        <div align="right">
+          <button type="button"
+            class="btn btn-primary"
+            (click)="onCrearProyecto()"
+            [disabled]="!nombreProyecto">
+                Aceptar
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            (click)="hideChildModal()">
+                Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<base href="/" />
 <router-outlet></router-outlet>
-<body>
-</body>

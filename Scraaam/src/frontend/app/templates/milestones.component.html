@@ -2,7 +2,6 @@
 <div style="margin-top: 60px;">
   <div class="row">
     <div class="col-sm-6">
-      <nuevoMilestone [proyecto]="proyecto" [hidden] ="!nuevoMilestoneVisible"></nuevoMilestone>
       <tareas [milestone]="milestoneSeleccionada" [hidden] ="!tareasVisible"></tareas>
     </div>
     <div class="col-sm-4">
@@ -17,11 +16,51 @@
             </div>
           </div>
           <button type="button" class="btn btn-primary"
-              (click)="onCrearMilestone()">
+              (click)="showChildModal()">
                 Crear Milestone
           </button>
       </div>
     </div>
   </div>
 </div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Crear Milestone</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+              <label>Nombre:</label>
+              <input type="text"
+                name="nombre"
+                class="form-control"
+                [(ngModel)]="milestone.nombre"
+                placeholder="Nombre">
+          </div>
+          <div class="form-group">
+              <label>Descripcion:</label>
+              <input type="text"
+                class="form-control"
+                name="descripcion"
+                [(ngModel)]="milestone.descripcion"
+                placeholder="Descripcion">
+          </div>
+          <div align="right">
+            <button type="button"
+              class="btn btn-primary"
+              (click)="onCrearMilestone()"
+              [disabled]="!milestone.nombre||!milestone.descripcion">
+                  Crear Milestone
+            </button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>

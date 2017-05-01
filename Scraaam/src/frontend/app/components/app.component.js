@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute,ROUTER_DIRECTIVES,Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
+import { ActivatedRoute, ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import Service from '../services/services';
 
@@ -7,7 +8,10 @@ import Service from '../services/services';
   selector: 'app-view',
   inputs: ['proyectos'],
   directives: [ROUTER_DIRECTIVES],
-  template: require('../templates/app.component.html')
+  template: require('../templates/app.component.html'),
+  queries: {
+    childModal: new ViewChild("childModal")
+  }
 })
 
 export default class AppComponent {
@@ -16,7 +20,7 @@ export default class AppComponent {
 		this.service = service
     this.router = router
 		this.proyectos = this.service.proyectos
-    this.proyecto = {}
+    this.nombreProyecto = ''
 	}
 
 	verProyecto(idProyecto){
@@ -24,6 +28,24 @@ export default class AppComponent {
       this.router.navigate(['/milestones',idProyecto]);
 	}
 
+  showChildModal() {
+   this.childModal.show()
+ }
+
+  hideChildModal() {
+   this.childModal.hide()
+ }
+
+  onCrearProyecto() {
+    let pr = {nombre: this.nombreProyecto}
+    this.service.crearProyecto(pr)
+      .then( _ => {
+        this.nombreProyecto = ''
+        this.childModal.hide()
+      })
+      .catch(err => console.log(err));
+ }
+
 }
 
-AppComponent.parameters = [Service,Router]
+AppComponent.parameters = [Service, Router]

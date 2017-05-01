@@ -46,7 +46,7 @@ proyectoRouter.get('/proyectos/:proyecto', (req, res, next) => {
 proyectoRouter.put('/proyectos/:proyecto', (req, res, next) => {
     const proyecto = req.proyecto;
     const milestone = proyecto.agregarMilestone(req.body.nombre);
-    const epic = milestone.agregarEpic(req.body.descripcion)
+    const epic = milestone.crearEpic(req.body.descripcion)
 
     epic.save()
       .then( _ => {

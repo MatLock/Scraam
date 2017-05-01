@@ -10,17 +10,13 @@ const epicSchema = new mongoose.Schema({
 })
 
 epicSchema.methods.agregarComentario = function(c) {
-  this.comentarios.push(comentario);
+  this.comentarios.push(c);
 }
 
 epicSchema.methods.agregarTarea = function(t) {
   let tarea = new Tarea(t);
   this.tareas.push(tarea);
   return tarea;
-}
-
-epicSchema.methods.agregarComentario = function(d) {
-  this.comentarios.push(d);
 }
 
 

@@ -1,9 +1,8 @@
 import chai from "chai";
-import mongoose from "mongoose"
-import mockgoose from "mockgoose"
 
 import Tarea from '../../backend/models/Tarea'
 import Epic from '../../backend/models/Epic'
+import { setup } from "../backend/setUp"
 
 const assert = chai.assert;
 
@@ -38,26 +37,13 @@ describe("Comportamiento de la clase Tarea", () =>{
 
 describe('Persistencia de la clase Epic',() =>{
 
+  setup();
   context ("Persistencia",() => {
 
     const epic = new Epic({descripcion:'descripcion',comentarios:[],tareas:[]});
 
-
-    before("Mock mongoose", async() => {
-      await mockgoose(mongoose)
-      mongoose.connect('mongodb://localhost/Scraaam-test')
-    })
-
-    after("Restaurando mongoose", done => {
-      mongoose.unmock(done);
-    })
-
-    afterEach("Reset de mock de mongo", done => {
-      mockgoose.reset(done);
-    })
-
-    it('Test de la persistencia de una Epic',()=>{
-        epic.save();
+    it('Test de la persistencia de una Epic',async()=>{
+        await epic.save();
         assert.isNotNull(epic._id);
         assert.isNotNull(epic.comentarios);
         assert.isNotNull(epic.tareas);

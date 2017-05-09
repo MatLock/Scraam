@@ -1,5 +1,6 @@
 import Milestone from '../../backend/models/Milestone'
 import Proyecto from '../../backend/models/Proyecto'
+import { setup } from "../backend/setUp"
 
 import chai from "chai";
 const assert = chai.assert;
@@ -23,4 +24,21 @@ describe("Comportamiento de la clase Proyecto", () =>{
     });
 
   });
+});
+
+describe('Persistencia de la clase Proyecto',() =>{
+
+  setup();
+  context ("Persistencia",() => {
+
+    const proyecto = new Proyecto({nombre:'Proyecto',milestones:[]});
+
+    it('Test de la persistencia de un Proyecto',async()=>{
+        await proyecto.save();
+        assert.isNotNull(proyecto._id);
+        assert.isNotNull(proyecto.milestones);
+    });
+
+  });
+
 });

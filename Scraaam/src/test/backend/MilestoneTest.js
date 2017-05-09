@@ -1,5 +1,6 @@
 import Milestone from '../../backend/models/Milestone'
 import Epic from '../../backend/models/Epic'
+import { setup } from "../backend/setUp"
 
 import chai from "chai";
 const assert = chai.assert;
@@ -22,4 +23,21 @@ describe("Comportamiento de la clase Milestone", () =>{
     });
 
   });
+});
+
+describe('Persistencia de la clase Milestone',() =>{
+
+  setup();
+  context ("Persistencia",() => {
+
+    const milestone = new Milestone({nombre:'Milestone',epics:[]});
+
+    it('Test de la persistencia de una Milestone',async()=>{
+        await milestone.save();
+        assert.isNotNull(milestone._id);
+        assert.isNotNull(milestone.epics);
+    });
+
+  });
+
 });

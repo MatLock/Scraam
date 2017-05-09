@@ -31,8 +31,8 @@ describe("test de las rutas de express (milestones y proyectos)", () => {
         const response = await request(app)
               .get("/proyectos")
               .expect(200)
-              assert.equal(response.body.length,1);
-              assert.equal(response.body[0].nombre,"proyecto");
+        assert.equal(response.body.length,1);
+        assert.equal(response.body[0].nombre,"proyecto");
         })
     })
 
@@ -42,18 +42,18 @@ describe("test de las rutas de express (milestones y proyectos)", () => {
         const response = await request(app)
               .get("/proyectos/"+mockData.proyecto._id)
               .expect(200)
-              assert.isNotNull(response.body);
-              assert.equal(response.body._id,mockData.proyecto._id);
+        assert.isNotNull(response.body);
+        assert.equal(response.body._id,mockData.proyecto._id);
         })
 
         it("debe retornar un proyecto con nombre:'proyecto' y un array de ids de milestones ", async() => {
           const response = await request(app)
                 .get("/proyectos/"+mockData.proyecto._id)
                 .expect(200)
-                assert.isNotNull(response.body);
-                assert.equal(response.body.nombre,'proyecto');
-                assert.isNotNull(response.body.milestones);
-                assert.equal(response.body.milestones[0].nombre,'milestone');
+          assert.isNotNull(response.body);
+          assert.equal(response.body.nombre,'proyecto');
+          assert.isNotNull(response.body.milestones);
+          assert.equal(response.body.milestones[0].nombre,'milestone');
           })
     })
 
@@ -63,7 +63,7 @@ describe("test de las rutas de express (milestones y proyectos)", () => {
         const response = await request(app)
               .post("/proyectos",{nombre:'nuevoProyecto'})
               .expect(200)
-              assert.isNotNull(response.body);
+        assert.isNotNull(response.body);
         })
     })
 
@@ -71,9 +71,9 @@ describe("test de las rutas de express (milestones y proyectos)", () => {
 
       it("dado un proyecto debe agregar una milestone y retornar su ID", async() => {
         const response = await request(app)
-              .put("/proyectos/"+mockData.proyecto._id,{nombre:'nuevoProyecto'})
+              .put("/proyectos/"+mockData.proyecto._id,{nombre:'nuevaMilestone'})
               .expect(200)
-              assert.isNotNull(response.body);
+        assert.isNotNull(response.body);
         })
     })
 

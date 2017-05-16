@@ -16,7 +16,7 @@ import Service from '../services/services';
 
 export default class AppComponent {
 
-  constructor(service,router) {
+  constructor(service, router) {
 		this.service = service
     this.router = router
 		this.proyectos = this.service.proyectos
@@ -25,7 +25,7 @@ export default class AppComponent {
 
 	verProyecto(idProyecto){
 		  this.service.nuevoMilestoneVisible = false;
-      this.router.navigate(['/milestones',idProyecto]);
+      this.router.navigate(['/milestones', idProyecto]);
 	}
 
   showChildModal() {

@@ -15,6 +15,8 @@ import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 import MilestoneComponent from './app/components/milestones.component'
+import DetalleMilestoneComponent from './app/components/detalleMilestone.component'
+import EpicComponent from './app/components/epics.component'
 import TareaComponent from './app/components/tareas.component'
 import NuevaTareaComponent from './app/components/nuevaTarea.component'
 import Service from './app/services/services'
@@ -33,6 +35,8 @@ let router = RouterModule.forRoot([
   	declarations: [
     AppComponent,
 		MilestoneComponent,
+    DetalleMilestoneComponent,
+    EpicComponent,
     TareaComponent,
     NuevaTareaComponent,
     CardComponent

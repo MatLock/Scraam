@@ -23,6 +23,7 @@ milestoneRouter.param('milestone', (req, res, next, value) => {
       }
       milestone.epics.forEach(epic => !epic.tareas ? epic.tareas = [] : epic);
       req.milestone = milestone;
+      console.log(req.milestone.epics);
       next();
     })
     .catch(next);
@@ -51,6 +52,21 @@ milestoneRouter.put('/milestones/:milestone', (req, res, next) => {
           .catch(next)
       })
       .catch(next);
+});
+
+milestoneRouter.put('/epic/:milestone', (req, res, next) => {
+
+    const milestone = req.milestone;
+    const epic = new Epic(req.body);
+
+    epic.save()
+      .then( _ => {
+        milestone.epics.push(epic)
+        return milestone.save()
+      })
+      .then( _ => res.json(epic))
+      .catch(next);
+
 });
 
 milestoneRouter.post('/milestones/:milestone/:descripcion', (req, res, next) => {

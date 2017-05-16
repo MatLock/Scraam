@@ -46,19 +46,15 @@ proyectoRouter.get('/proyectos/:proyecto', (req, res, next) => {
 proyectoRouter.put('/proyectos/:proyecto', (req, res, next) => {
     const proyecto = req.proyecto;
     const milestone = proyecto.agregarMilestone(req.body.nombre);
-    const epic = milestone.agregarEpic(req.body.descripcion)
+    //const epic = milestone.agregarEpic(req.body.descripcion)
 
-    epic.save()
-      .then( _ => {
-        milestone.epics.push(epic);
-        milestone.save()
+    milestone.save()
           .then( _ => {
             proyecto.save()
               .then( _ => res.json(milestone.id))
               .catch(next);
               })
-          .catch(next)})
-      .catch(next);
+          .catch(next)
 });
 
 export default proyectoRouter

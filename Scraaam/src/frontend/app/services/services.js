@@ -8,6 +8,7 @@ export default class Service {
 
   constructor(http) {
      this.http = http
+     this.milestone = {}
      this.proyectos = []
      this.http.get("/proyectos").toPromise()
              .then(response => this.proyectos.push(...response.json()))
@@ -15,7 +16,7 @@ export default class Service {
    }
 
   verProyecto(id) {
-    return this.http.get(`/proyectos/${id}`).toPromise()
+      return this.http.get(`/proyectos/${id}`).toPromise()
                     .then(response => response.json())
                     .catch(err => console.log(err))
   }
@@ -30,17 +31,17 @@ export default class Service {
                       .catch(err => console.log(err));
   }
 
-  crearMilestone(milestone,proyecto){
-    return this.http.put(`/proyectos/${proyecto._id}`, JSON.stringify(milestone),{ headers:{'Content-Type': 'application/json'}})
+  crearMilestone(milestone, proyecto){
+    this.http.put(`/proyectos/${proyecto._id}`, JSON.stringify(milestone),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
-                        milestone._id=response;
+                        milestone._id=response.json();
                         proyecto.milestones.push(milestone);
                       })
                       .catch(err => console.log(err));
   }
 
-  crearTarea(tarea,milestone){
+  crearTarea(tarea, milestone){
     return this.http.put(`/milestones/${milestone._id}`, JSON.stringify(tarea),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
@@ -50,13 +51,19 @@ export default class Service {
                       .catch(err => console.log(err));
   }
 
-  obtenerTareasDe(milestone){
-    this.http.get(`/milestones/${milestone._id}`,{ headers:{'Content-Type': 'application/json'}})
+  crearEpic(epic, milestone){
+    this.http.put(`/epic/${milestone._id}`, JSON.stringify(epic),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
-                        milestone.epics = response.json().epics
-                      })
+                        let epic = response.json();
+                        milestone.epics.push(epic);
+                       })
                       .catch(err => console.log(err));
+  }
+
+  obtenerDetallesDe(milestone){
+    return this.http.get(`/milestones/${milestone._id}`,{ headers:{'Content-Type': 'application/json'}})
+                    .toPromise();
   }
 
 }

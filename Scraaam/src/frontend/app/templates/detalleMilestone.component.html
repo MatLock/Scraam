@@ -1,0 +1,33 @@
+<div class="col-sm-8">
+  <h1 *ngIf="milestone">{{milestone.nombre}}</h1>
+  <div class="container">
+    {{totalEpics}} Epics - {{totalTareas}} Tareas
+  </div>
+  <br>
+  <div class="borders" id="north">Epics</div>
+    <br>
+    <div *ngIf="milestone">
+      <ul *ngFor="let e of milestone.epics" style="cursor: pointer; cursor: hand;">
+        <li (click)=onVerDetalles(e)>{{e.nombre}}</li>
+      </ul>
+    <div>
+    <br>
+    <!-- Agregar un input para meter descripcion (es obligatorio tambien) -->
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="nuevaEpic">Nueva Epic</label>
+        <input type="text"
+          class="form-control"
+          [(ngModel)]="epic.nombre"
+          placeholder="Nombre"
+          name="nuevaEpic"
+          id="nuevaEpic">
+      </div>
+      <button type="button" class="btn btn-primary"
+      (click)="onCrearEpic()"
+      [disabled]="!epic.nombre">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+      </button>
+    </form>
+</div>
+<router-outlet></router-outlet>

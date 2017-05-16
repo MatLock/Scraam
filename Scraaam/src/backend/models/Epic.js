@@ -4,6 +4,7 @@ import Tarea from '../models/Tarea.js'
 
 // Mongoose models and schemas
 const epicSchema = new mongoose.Schema({
+  nombre: String,
   descripcion: String,
   comentarios: [String],
   tareas: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tarea' }]

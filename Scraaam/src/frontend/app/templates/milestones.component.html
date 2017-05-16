@@ -1,64 +1,32 @@
-
-<div style="margin-top: 60px;">
+<div style="margin-top: 50px;">
+  <div class="borders" id="north">{{proyecto.nombre}}</div>
   <div class="row">
-    <div class="col-sm-6">
-      <tareas [milestone]="milestoneSeleccionada" [hidden] ="!tareasVisible"></tareas>
+    <div class="col-sm-8">
+      <detalleMilestone [milestone]="milestoneSeleccionada" [hidden] =" !detallesMilestone"></detalleMilestone>
     </div>
     <div class="col-sm-4">
-      <div>
-          <div align="center">Milestones</div>
-            <div class="row" *ngFor="let m of proyecto.milestones">
-              <div style=" border: 2px solid red;border-radius: 12px;">
-                <p align="center" class="card-text">{{m.nombre}}</p>
-                <div align="right">
-                  <button class="btn btn-warning" (click)=onVerTareas(m)>VER TAREAS</button>
-                </div>
-            </div>
+      <div class="borders" id="north">Milestones</div>
+        <br>
+        <ul *ngFor="let m of proyecto.milestones" style="cursor: pointer; cursor: hand;">
+          <li (click)=onVerDetalles(m)>{{m.nombre}}</li>
+        </ul>
+        <br>
+        <form class="form-inline">
+          <div class="form-group">
+            <label for="nuevoMilestone">Nuevo Milestone</label>
+            <input type="text"
+              class="form-control"
+              [(ngModel)]="milestone.nombre"
+              placeholder="Nombre"
+              name="nuevoMilestone"
+              id="nuevoMilestone">
           </div>
           <button type="button" class="btn btn-primary"
-              (click)="showChildModal()">
-                Crear Milestone
+          (click)="onCrearMilestone()"
+          [disabled]="!milestone.nombre">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
           </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Crear Milestone</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div class="form-group">
-              <label>Nombre:</label>
-              <input type="text"
-                name="nombre"
-                class="form-control"
-                [(ngModel)]="milestone.nombre"
-                placeholder="Nombre">
-          </div>
-          <div class="form-group">
-              <label>Descripcion:</label>
-              <input type="text"
-                class="form-control"
-                name="descripcion"
-                [(ngModel)]="milestone.descripcion"
-                placeholder="Descripcion">
-          </div>
-          <div align="right">
-            <button type="button"
-              class="btn btn-primary"
-              (click)="onCrearMilestone()"
-              [disabled]="!milestone.nombre||!milestone.descripcion">
-                  Crear Milestone
-            </button>
-          </div>
-      </div>
+        </form>
     </div>
   </div>
 </div>

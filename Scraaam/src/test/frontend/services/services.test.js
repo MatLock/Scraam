@@ -68,11 +68,7 @@ describe("Angular services", () => {
       milestone.should.have.property("nombre").equal("Milestone #1");
     });
   })
-
-
-
-
-
+  
 })
 
 function createResponse(data) {

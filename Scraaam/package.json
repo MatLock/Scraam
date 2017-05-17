@@ -5,7 +5,8 @@
   "scripts": {
     "start": "babel-node -- src/backend/app.js",
     "test": "mocha src/test/backend --recursive --compilers js:babel-core/register --require babel-polyfill --timeout 120000",
-    "coverage-test": "NODE_ENV=test nyc --require babel-core/register --require babel-polyfill mocha --compilers js:babel-register --recursive src/test/backend"
+    "coverage-test": "NODE_ENV=test nyc --require babel-core/register --require babel-polyfill mocha --compilers js:babel-register --recursive src/test/backend",
+    "karma": "node_modules/karma/bin/karma start"
   },
   "keywords": [],
   "author": "",

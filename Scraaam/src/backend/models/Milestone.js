@@ -9,12 +9,7 @@ const milestoneSchema = new mongoose.Schema({
   epics: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Epic' }]
 })
 
-milestoneSchema.methods.agregarComentario = function(comentario) {
-  this.epics[0].push(comentario);
-  return this.epics[0];
-}
-
-milestoneSchema.methods.agregarEpic = function(descripcion){
+milestoneSchema.methods.crearEpic = function(descripcion){
   let epic = new Epic();
   epic.descripcion = descripcion;
   return epic;

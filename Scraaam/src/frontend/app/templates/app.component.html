@@ -6,7 +6,7 @@
           Proyecto... <span class="caret"></span>
         </button>
         <ul *dropdownMenu class="dropdown-menu" role="menu" style="cursor: pointer; cursor: hand;">
-          <li *ngFor="let proyecto of proyectos"
+          <li class="proyecto" *ngFor="let proyecto of proyectos"
           	role="menuitem">
           	<a class="dropdown-item"
               (click)="verProyecto(proyecto._id)">{{proyecto.nombre}}</a>

@@ -4,9 +4,12 @@
   "main": "src/backend/app.js",
   "scripts": {
     "start": "babel-node -- src/backend/app.js",
+    "webpack-start": "node node_modules/webpack/bin/webpack.js --progress --watch",
     "test": "mocha src/test/backend --recursive --compilers js:babel-core/register --require babel-polyfill --timeout 120000",
     "coverage-test": "NODE_ENV=test nyc --require babel-core/register --require babel-polyfill mocha --compilers js:babel-register --recursive src/test/backend",
-    "karma": "node_modules/karma/bin/karma start"
+    "karma": "node_modules/karma/bin/karma start",
+    "protractor": "protractor protractor.conf.js",
+    "selenium": "webdriver-manager start"
   },
   "keywords": [],
   "author": "",

@@ -33,25 +33,21 @@ milestoneRouter.get('/milestones/:milestone', (req, res, next) => {
      res.json(req.milestone)
 });
 
-milestoneRouter.put('/milestones/:milestone', (req, res, next) => {
+milestoneRouter.put('/milestones/:milestone/:idEpic', (req, res, next) => {
 
     const milestone = req.milestone;
     const tarea = new Tarea(req.body);
+    let epic = milestone.epics.filter(e => e._id == req.params.idEpic)[0]
+    console.log(epic)
 
     tarea.save()
       .then( _ => {
-        milestone.epics[0].tareas.push(tarea)
-        milestone.epics[0].save()
-          .then( _ => {
-              milestone.save()
-                .then( _ => {
-                    res.json(tarea._id)
-                  })
-                .catch(next)
-              })
-          .catch(next)
-      })
-      .catch(next);
+          epic.tareas.push(tarea)
+          return epic.save()
+        })
+        .then( _ => milestone.save())
+        .then( _ => res.json(tarea._id))
+        .catch(next);
 });
 
 milestoneRouter.put('/epic/:milestone', (req, res, next) => {

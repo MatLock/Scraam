@@ -18,6 +18,8 @@ export default class DetalleMilestoneComponent {
     this.totalTareas = 0
     this.totalEpics = 0
     this.epic = {}
+    this.epicSeleccionada = null;
+    this.epicConMilestone = null;
   }
 
   ngOnInit(){
@@ -25,20 +27,26 @@ export default class DetalleMilestoneComponent {
   //  this.epics = this.milestone.epics
   }
 
-  contarTareas(evt){
-    debugger;
-    var totalTareas = 0;
-    if(this.milestone){
-      this.milestone.epics.forEach(epic => {
+  contarTareas = () => {
+      var totalTareas = 0;
+      if(this.milestone){
+        this.milestone.epics.forEach(epic => {
           totalTareas += epic.tareas.length;
-      });
-      this.totalTareas = totalTareas;
-    }
+        });
+        this.totalTareas = totalTareas;
+        this.totalEpics = this.milestone.epics.length;
+      }
   }
 
   onCrearEpic() {
    this.service.crearEpic(this.epic, this.milestone)
+   this.contarTareas();
    this.epic = {}
+ }
+
+ onVerDetalles(epic){
+   this.epicSeleccionada = epic
+   this.epicConMilestone = {epic:this.epicSeleccionada,milestone:this.milestone}
  }
 
 }

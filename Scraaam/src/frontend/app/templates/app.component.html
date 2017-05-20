@@ -2,8 +2,7 @@
   <div class="container">
     <a class="navbar-brand">Scraam</a>
       <div class="btn-group" dropdown style="padding-top: 8px;">
-        <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-          Proyecto... <span class="caret"></span>
+        <button dropdownToggle type="button" id="altaProyecto" class="btn btn-primary dropdown-toggle">Proyecto...<span class="caret"></span>
         </button>
         <ul *dropdownMenu class="dropdown-menu" role="menu" style="cursor: pointer; cursor: hand;">
           <li class="proyecto" *ngFor="let proyecto of proyectos"
@@ -31,7 +30,7 @@
       <div class="modal-body">
         <div class="form-group">
           <label>Nombre:</label>
-          <input name="nombreProyecto"
+          <input name="nombreProyecto" id="nombreProyecto"
             type="text"
             class="form-control"
             [(ngModel)]="nombreProyecto"
@@ -55,5 +54,5 @@
   </div>
 </div>
 
-<base href="/" />
+
 <router-outlet></router-outlet>

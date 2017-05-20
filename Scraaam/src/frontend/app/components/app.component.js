@@ -5,7 +5,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import Service from '../services/services';
 
 @Component({
-  selector: 'app-view',
+  selector: 'app',
   inputs: ['proyectos'],
   directives: [ROUTER_DIRECTIVES],
   template: require('../templates/app.component.html'),

@@ -41,12 +41,12 @@ export default class Service {
                       .catch(err => console.log(err));
   }
 
-  crearTarea(tarea, milestone){
-    return this.http.put(`/milestones/${milestone._id}`, JSON.stringify(tarea),{ headers:{'Content-Type': 'application/json'}})
+  crearTarea(tarea,milestone, epic){
+    return this.http.put(`/milestones/${milestone._id}/${epic._id}`, JSON.stringify(tarea),{ headers:{'Content-Type': 'application/json'}})
                     .toPromise()
                       .then(response => {
                         tarea._id = response;
-                        milestone.epics[0].tareas.push(tarea);
+                        epic.tareas.push(tarea);
                        })
                       .catch(err => console.log(err));
   }

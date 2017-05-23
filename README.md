@@ -1,5 +1,6 @@
 # Scraam
 
-Install & Run -> 
-# npm install 
-# npm start
+Install & Run ->
+
+### npm install 
+### npm start

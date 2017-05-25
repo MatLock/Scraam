@@ -91,11 +91,11 @@ describe("test de las rutas de express (milestones y proyectos)", () => {
         })
     })
 
-    describe("PUT /milestones", () => {
+    describe("PUT /epic", () => {
 
-      it("dado un ID de milestone y  un nombre de tarea debe agregar y debe retornar el ID de la tarea agregada", async() => {
+      it("dado un ID de milestone  un nombre de epic debe agregar y debe retornar el ID del epic agregado", async() => {
         const response = await request(app)
-              .put("/milestones/"+mockData.milestone._id,{descripcion:'nueva tarea'})
+              .put("/epic/"+mockData.milestone._id,{descripcion:'nueva tarea'})
               .expect(200)
               assert.isNotNull(response.body);
         })

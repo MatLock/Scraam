@@ -1,3 +1,5 @@
+'use strict';
+
 import gulp from 'gulp'
 import gutil from 'gulp-util'
 import concat from 'gulp-concat'
@@ -17,6 +19,10 @@ import rename from 'gulp-rename';
 
 
 const gulpsync = require('gulp-sync')(gulp);
+const Server = require('karma').Server;
+const protractor = require("gulp-protractor").protractor;
+
+//browserify().transform("babelify", {presets: ["es2015"]});
 
 gulp.task('prueba', function() {
     console.log("holaaaa");
@@ -26,12 +32,12 @@ gulp.task('prueba', function() {
 gulp.task('clean-all', () => del(['target']));
 
 
-gulp.task('transpile:minify',['clean-all','test:backend'],() => {
-    return gulp.src(['src/backend/**/*.js'])
-    .pipe(minify())
-    .pipe(babel())
-    .pipe(gulp.dest('target'))
-  });
+gulp.task('test:frontend', function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
+});
 
 gulp.task('test:backend', () =>{
 	return gulp.src('src/test/backend/*.js', { read: false })
@@ -40,6 +46,28 @@ gulp.task('test:backend', () =>{
       require: ['babel-polyfill']
     }));
 });
+
+gulp.task('test:protractor',() =>{
+  return gulp.src(["src/test/frontend/e2e/*.js"])
+    .pipe(protractor({
+        configFile: "protractor.conf.js",
+        args: ['--baseUrl', 'http://localhost:3001']
+    }));
+});
+
+gulp.task('test:frontend-all',['test:frontend',"test:protractor"],() =>{});
+
+gulp.task('test:all',gulpsync.sync(['test:backend','test:frontend-all']),()=>{});
+
+gulp.task('test:all-non-e2e',gulpsync.sync(['test:backend','test:frontend']),() =>{});
+
+
+gulp.task('transpile:minify',gulpsync.sync(['clean-all','test:frontend','test:backend']),() => {
+    return gulp.src(['src/backend/**/*.js'])
+    .pipe(minify())
+    .pipe(babel())
+    .pipe(gulp.dest('target/backend'))
+  });
 
 gulp.task('delete-non-minified-files',() => {
     return gulp.src('target/**')
@@ -73,7 +101,7 @@ gulp.task('build',gulpsync.sync(['transpile:minify','clean-workspace']),() => {
 });
 
 gulp.task('start',['build'],() =>{
-  const server = gls.new('target/app.js')
+  const server = gls.new('target/backend/app.js')
   server.start();
 });
 
@@ -85,8 +113,9 @@ gulp.task('build:watch', () =>
   PREGUNTAR COMO CORRER CON WEBPACK ARCHIVOS JS DE ANGULAR NO SE PUEDEN MINIFICAR
   LO MISMO PARA LOS TEST DE MOCHA
 **/
+
 gulp.task('transpile:webpack', function() {
-  return gulp.src('src/frontend/**/*.js')
+  return gulp.src('src/frontend/**.js')
     .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest('target'));
+    .pipe(gulp.dest('target/frontend'));
 });

@@ -5,4 +5,3 @@ before_script:
  - npm install -g gulp
 script:
  - gulp test:all-non-e2e'
- - gulp coverage

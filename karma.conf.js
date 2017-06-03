@@ -20,5 +20,9 @@ module.exports = (config) => {
     port: 9876,
     browsers: ['Chrome'],
     singleRun: true,
-  })
+  });
+  
+  if(process.env.TRAVIS){
+      config.browsers = ['Chrome_travis_ci'];
+  }
 }

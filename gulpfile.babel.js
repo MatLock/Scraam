@@ -17,18 +17,13 @@ import rename from 'gulp-rename';
 import jshint from 'gulp-jshint';
 import stylish from 'jshint-stylish';
 import istanbul from 'gulp-istanbul';
-
+import codecov from 'gulp-codecov';
 
 const gulpsync = require('gulp-sync')(gulp);
 const Server = require('karma').Server;
 const protractor = require("gulp-protractor").protractor;
 
-//browserify().transform("babelify", {presets: ["es2015"]});
 
-gulp.task('prueba', function() {
-    console.log("holaaaa");
-    console.log(gulpsync);
-});
 
 gulp.task('clean-all', () => del(['target']));
 
@@ -71,6 +66,12 @@ gulp.task('coverage', () => {
     .pipe(mocha())
     .pipe(istanbul.writeReports());
 });
+
+
+gulp.task('codecov',() =>{
+  return gulp.src('./coverage/lcov.info')
+    .pipe(codecov());
+})
 
 gulp.task('lint', function() {
    return gulp.src('src/backend/**/*.js')

@@ -54,6 +54,7 @@
     "gulp-chmod": "^2.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-gzip": "^1.4.0",
+    "gulp-istanbul": "^1.1.1",
     "gulp-jshint": "^2.0.4",
     "gulp-live-server": "0.0.30",
     "gulp-minify": "^1.0.0",

@@ -16,6 +16,7 @@ import webpack from 'gulp-webpack';
 import rename from 'gulp-rename';
 import jshint from 'gulp-jshint';
 import stylish from 'jshint-stylish';
+import istanbul from 'gulp-istanbul';
 
 
 const gulpsync = require('gulp-sync')(gulp);
@@ -61,6 +62,15 @@ gulp.task('test:all',gulpsync.sync(['test:backend','test:frontend-all']),()=>{})
 
 gulp.task('test:all-non-e2e',gulpsync.sync(['test:backend','test:frontend']),() =>{});
 
+
+
+gulp.task('coverage', () => {
+  return gulp.src('src/test/backend/*.js', { read: false })
+    .pipe(istanbul())
+    .pipe(istanbul.hookRequire())
+    .pipe(mocha())
+    .pipe(istanbul.writeReports());
+});
 
 gulp.task('lint', function() {
    return gulp.src('src/backend/**/*.js')

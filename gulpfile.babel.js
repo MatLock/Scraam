@@ -92,7 +92,7 @@ gulp.task('delete-non-minified-files',() => {
           let filename = file.history[0];
           if(filename.indexOf('-min.js') === -1 &&
               filename.indexOf('.js') !== -1){
-                fs.unlinkSync(file.history[0])
+                fs.unlinkSync(filename)
           }
         }));
 });

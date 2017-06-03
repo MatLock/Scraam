@@ -1,6 +1,6 @@
 # Scraaam
 =======================
-[![Build Status](https://travis-ci.org/MatLock/Scraam.svg?branch=master)
+[![Build Status](https://travis-ci.org/MatLock/Scraam.svg?branch=master)]
 
 
 Once you have clone this repository, follow these steps to start working:

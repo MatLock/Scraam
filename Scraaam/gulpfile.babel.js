@@ -16,6 +16,8 @@ import tap from 'gulp-tap';
 import fs from 'fs';
 import webpack from 'gulp-webpack';
 import rename from 'gulp-rename';
+import jshint from 'gulp-jshint';
+import stylish from 'jshint-stylish';
 
 
 const gulpsync = require('gulp-sync')(gulp);
@@ -61,6 +63,12 @@ gulp.task('test:all',gulpsync.sync(['test:backend','test:frontend-all']),()=>{})
 
 gulp.task('test:all-non-e2e',gulpsync.sync(['test:backend','test:frontend']),() =>{});
 
+
+gulp.task('lint', function() {
+   return gulp.src('src/backend/**/*.js')
+       .pipe(jshint())
+       .pipe(jshint.reporter(stylish));
+});
 
 gulp.task('transpile:minify',gulpsync.sync(['clean-all','test:frontend','test:backend']),() => {
     return gulp.src(['src/backend/**/*.js'])

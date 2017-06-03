@@ -3,16 +3,6 @@ node_js:
   - "6"
 before_script:
  - npm install -g gulp
- - npm install -g gulp-babel
- - npm install -g gulp-codecov
- - npm install -g gulp-concat
- - npm install -g gulp-gzip
- - npm install -g gulp-istanbul
- - npm install -g gulp-jshint
- - npm install -g gulp-live-server
- - npm install -g gulp-minify
- - npm install -g gulp-mocha
- - npm install -g gulp-sync
- - npm install -g gulp-tar
+
 script:
- - gulp test:backend'
+ - gulp test:backend

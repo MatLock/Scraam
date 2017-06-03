@@ -1,0 +1,58 @@
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <a class="navbar-brand">Scraam</a>
+      <div class="btn-group" dropdown style="padding-top: 8px;">
+        <button dropdownToggle type="button" id="altaProyecto" class="btn btn-primary dropdown-toggle">Proyecto...<span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu" role="menu" style="cursor: pointer; cursor: hand;">
+          <li class="proyecto" *ngFor="let proyecto of proyectos"
+          	role="menuitem">
+          	<a class="dropdown-item"
+              (click)="verProyecto(proyecto._id)">{{proyecto.nombre}}</a>
+          </li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="showChildModal()">CREAR PROYECTO</a>
+          </li>
+        </ul>
+      </div>
+  </div>
+</nav>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Nuevo Proyecto</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Nombre:</label>
+          <input name="nombreProyecto" id="nombreProyecto"
+            type="text"
+            class="form-control"
+            [(ngModel)]="nombreProyecto"
+            placeholder="Ingrese nombre" required>
+        </div>
+        <div align="right">
+          <button type="button"
+            class="btn btn-primary"
+            (click)="onCrearProyecto()"
+            [disabled]="!nombreProyecto">
+                Aceptar
+          </button>
+          <button type="button"
+            class="btn btn-primary"
+            (click)="hideChildModal()">
+                Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<router-outlet></router-outlet>

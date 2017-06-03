@@ -1,6 +1,7 @@
-/tp/node_modules
-/tp/dist
-/Scraaam/node_modules
-/Scraaam/dist
-/node_modules
-Scraaam/npm-debug.log
+node_modules
+mongo_data
+npm-debug.log
+/dist
+.nyc_output
+tp/src
+target

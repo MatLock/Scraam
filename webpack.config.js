@@ -4,7 +4,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './src/frontend/bootstrap.js',
     output: {
-        path: __dirname + '/dist/frontend',
+        path: __dirname + '/dist/',
         filename: 'bundle.js'
     },
 

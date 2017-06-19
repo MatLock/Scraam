@@ -9,3 +9,4 @@ before_script:
 
 script:
  - gulp test:all-non-e2e
+ - gulp coverage

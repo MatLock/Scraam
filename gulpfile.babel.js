@@ -13,19 +13,24 @@ import sourcemaps from 'gulp-sourcemaps';
 import tap from 'gulp-tap';
 import fs from 'fs';
 import webpack from 'gulp-webpack';
+import webpackmodule from 'webpack';
 import rename from 'gulp-rename';
 import jshint from 'gulp-jshint';
 import stylish from 'jshint-stylish';
-import istanbul from 'gulp-istanbul';
+import istanbul from 'gulp-babel-istanbul';
+import injectModules from 'gulp-inject-modules';
 import codecov from 'gulp-codecov';
+import eslint from 'gulp-eslint';
+import run from 'gulp-run';
+import mywebpackconfig from './webpack.config.js';
 
 const gulpsync = require('gulp-sync')(gulp);
 const Server = require('karma').Server;
 const protractor = require("gulp-protractor").protractor;
+const isparta = require('isparta');
 
 
-
-gulp.task('clean-all', () => del(['target']));
+gulp.task('clean-all', () => del(['dist']));
 
 
 gulp.task('test:frontend', function (done) {
@@ -58,36 +63,33 @@ gulp.task('test:all',gulpsync.sync(['test:backend','test:frontend-all']),()=>{})
 gulp.task('test:all-non-e2e',gulpsync.sync(['test:backend','test:frontend']),() =>{});
 
 
-
-gulp.task('coverage', () => {
-  return gulp.src('src/test/backend/*.js', { read: false })
-    .pipe(istanbul())
-    .pipe(istanbul.hookRequire())
-    .pipe(mocha())
-    .pipe(istanbul.writeReports());
+gulp.task('coverage',() =>{
+    run('npm run coverage-test').exec();
 });
 
 
 gulp.task('codecov',() =>{
   return gulp.src('./coverage/lcov.info')
     .pipe(codecov());
-})
-
-gulp.task('lint', function() {
-   return gulp.src('src/backend/**/*.js')
-       .pipe(jshint())
-       .pipe(jshint.reporter(stylish));
 });
+
+gulp.task('lint', () => {
+	return gulp.src(['src/backend**/*.js', '!node_modules/**'])
+		.pipe(eslint())
+		.pipe(eslint.format())
+		.pipe(eslint.failAfterError())
+});
+
 
 gulp.task('transpile:minify',gulpsync.sync(['clean-all','test:frontend','test:backend']),() => {
     return gulp.src(['src/backend/**/*.js'])
     .pipe(minify())
     .pipe(babel())
-    .pipe(gulp.dest('target/backend'))
+    .pipe(gulp.dest('dist/backend'))
   });
 
 gulp.task('delete-non-minified-files',() => {
-    return gulp.src('target/**')
+    return gulp.src('dist/backend/**/*.js')
         .pipe(tap(function(file){
           let filename = file.history[0];
           if(filename.indexOf('-min.js') === -1 &&
@@ -98,13 +100,13 @@ gulp.task('delete-non-minified-files',() => {
 });
 
 gulp.task("rename:minified:files",['delete-non-minified-files'],() =>{
-  return gulp.src('target/**/*.js')
+  return gulp.src('dist/backend/**/*.js')
              .pipe(rename((path) => path.basename = path.basename.replace('-min','')))
-             .pipe(gulp.dest('target'));
+             .pipe(gulp.dest('dist/backend'));
 });
 
 gulp.task("clean-workspace",['rename:minified:files'],() =>{
-  return gulp.src('target/**/*.js')
+  return gulp.src('dist/backend/**/*.js')
       .pipe(tap(function(file){
         let filename = file.history[0];
         if(filename.indexOf('-min.js') !== -1){
@@ -113,12 +115,12 @@ gulp.task("clean-workspace",['rename:minified:files'],() =>{
       }));
 })
 
-gulp.task('build',gulpsync.sync(['transpile:minify','clean-workspace']),() => {
+gulp.task('build',gulpsync.sync(['transpile:minify','transpile:webpack','clean-workspace']),() => {
     console.log(">>>>   BUILD SUCCESSFULL!!!   <<<<");
 });
 
 gulp.task('start',['build'],() =>{
-  const server = gls.new('target/backend/app.js')
+  const server = gls.new('dist/backend/app.js')
   server.start();
 });
 
@@ -126,13 +128,8 @@ gulp.task('build:watch', () =>
   gulp.watch('src/**/*.js', ['build'])
 );
 
-/**
-  PREGUNTAR COMO CORRER CON WEBPACK ARCHIVOS JS DE ANGULAR NO SE PUEDEN MINIFICAR
-  LO MISMO PARA LOS TEST DE MOCHA
-**/
-
 gulp.task('transpile:webpack', function() {
-  return gulp.src('src/frontend/**.js')
-    .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest('target/frontend'));
+  return gulp.src('src/frontend/bootstrap.js')
+    .pipe(webpack(mywebpackconfig,webpackmodule))
+    .pipe(gulp.dest('dist/frontend/'));
 });

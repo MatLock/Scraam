@@ -1,24 +1,8 @@
 module.exports = {
-    "env": {
-        "browser": true
-    },
-    "extends": "eslint:recommended",
-    "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "semi": [
-            "error",
-            "always"
-        ]
-    }
-};
+	"parser": "babel-eslint",
+	"rules": {
+		"no-var": "error",
+		"arrow-parens": ["error", "as-needed"],
+		"semi-spacing": ["error", {"before": false, "after": true}]
+	}
+}

@@ -18,7 +18,6 @@ import rename from 'gulp-rename';
 import jshint from 'gulp-jshint';
 import stylish from 'jshint-stylish';
 import istanbul from 'gulp-babel-istanbul';
-import injectModules from 'gulp-inject-modules';
 import codecov from 'gulp-codecov';
 import eslint from 'gulp-eslint';
 import run from 'gulp-run';

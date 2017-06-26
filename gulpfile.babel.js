@@ -80,7 +80,7 @@ gulp.task('lint', () => {
 });
 
 
-gulp.task('transpile:minify',gulpsync.sync(['clean-all','test:frontend','test:backend']),() => {
+gulp.task('transpile:minify',['clean-all'],() => {
     return gulp.src(['src/backend/**/*.js'])
     .pipe(minify())
     .pipe(babel())

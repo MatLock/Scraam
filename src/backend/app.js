@@ -7,7 +7,7 @@ import mongoose from 'mongoose'
 import proyectoRouter from './routes/proyectoRoutes.js'
 import milestoneRouter from './routes/milestoneRoutes.js'
 
-mongoose.connect('mongodb://localhost/Scraaam')
+mongoose.connect(process.env.MONGO || 'mongodb://localhost/Scraaam')
 
 app.use(express.static(__dirname + "/../../dist/frontend"));
 app.use(bodyParser.urlencoded({extended:false}));

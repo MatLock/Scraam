@@ -10,7 +10,7 @@ import app from "../../../src/backend/server.js"
 import { setup } from "../backend/setUp"
 
 const assert = chai.assert;
-
+const server = process.env.SERVER;
 
 describe("test de las rutas de express (milestones y proyectos)", () => {
 

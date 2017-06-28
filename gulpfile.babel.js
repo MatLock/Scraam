@@ -49,10 +49,7 @@ gulp.task('test:backend', () =>{
 
 gulp.task('test:protractor',() =>{
   return gulp.src(["src/test/frontend/e2e/*.js"])
-    .pipe(protractor({
-        configFile: "protractor.conf.js",
-        args: ['--baseUrl', 'http://localhost:3001']
-    }));
+    .pipe(protractor({configFile: "protractor.conf.js"}));
 });
 
 gulp.task('test:frontend-all',['test:frontend',"test:protractor"],() =>{});

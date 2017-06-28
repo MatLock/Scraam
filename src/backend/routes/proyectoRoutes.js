@@ -56,4 +56,10 @@ proyectoRouter.put('/proyectos/:proyecto', (req, res, next) => {
           .catch(next)
 });
 
+
+proyectoRouter.get('/hola',(req,res,next) =>{
+    res.json('hola');
+});
+
+
 export default proyectoRouter

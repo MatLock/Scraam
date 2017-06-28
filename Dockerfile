@@ -1,6 +1,5 @@
 FROM node:6
 
-
 # Create app directory
 RUN mkdir -p /usr/src/dockerApp
 WORKDIR /usr/src/dockerApp

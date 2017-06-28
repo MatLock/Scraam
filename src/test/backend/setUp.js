@@ -6,7 +6,7 @@ export function setup() {
 
 	before("Mock mongoose", async() => {
 		await mockgoose(mongoose)
-		mongoose.connect('mongodb://localhost/Scraaam-test')
+		mongoose.connect(process.env.MONGO_TEST || 'mongodb://localhost/Scraaam-test')
 	})
 
 	after("Restore mongoose", done => {

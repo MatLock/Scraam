@@ -5,12 +5,13 @@ import mongoose from 'mongoose'
 import Proyecto from '../../../backend/models/Proyecto'
 
 chai.should()
-
+const mongo = process.env.MONGO || "mongodb://localhost/Scraaam";
+const server = process.env.SERVER || "http://localhost:3001/";
 
 describe("comportamiento end to end de la aplicacion => ",() => {
 
   after(() => {
-    mongoose.connect("mongodb://localhost/Scraaam",{db:{safe:false}}, (err) =>{
+    mongoose.connect(mongo,{db:{safe:false}}, (err) =>{
       if(err){
         console.log(err);
       }
@@ -26,7 +27,7 @@ describe("comportamiento end to end de la aplicacion => ",() => {
 
   it("Debe crear un proyecto", async() => {
     browser.driver.manage().window().setSize(1280,1024);
-    browser.get("http://localhost:3001/#/")
+    browser.get(server)
 
     const proyectosOriginales = await element.all(by.css(".proyecto")).count()
     proyectosOriginales.should.be.equal(0)

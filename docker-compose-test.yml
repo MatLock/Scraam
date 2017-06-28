@@ -1,0 +1,38 @@
+version: '2.0'
+
+services:
+  mongo_test:
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: "--smallfiles --logpath=/dev/null"
+
+  app_test:
+    build: .
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongo_test
+    environment:
+      MONGO: 'mongodb://mongo_test/Scraaam'
+
+  webdriver:
+    image: 'selenium/standalone-chrome:latest'
+    ports:
+      - "4444:4444"
+
+  test:
+    build: .
+    command: 'gulp test:protractor'
+    depends_on:
+      - mongo_test
+      - webdriver
+      - app_test
+    links:
+      - webdriver
+      - app_test
+    environment:
+      MONGO_TEST: 'mongodb://mongo_test/Scraaam-test'
+      MONGO: 'mongodb://mongo_test/Scraaam'
+      SERVER: 'http://app_test:3001'
+      WEBDRIVER: 'http://webdriver:4444/wd/hub/'

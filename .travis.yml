@@ -21,7 +21,7 @@ before_script:
  - npm install -g gulp
 
 script:
-  - docker build -t $USERNAME/scraaam@version-1 .
+  - docker build .
   - docker-compose -f docker-compose-test.yml  run test
   - gulp test:all-non-e2e
   - gulp coverage

@@ -5,7 +5,7 @@ sudo: required
 services:
   - docker
 env:
-  - DOCKER_COMPOSE_VERSION=2.0
+  - DOCKER_COMPOSE_VERSION=1.4.2
 
 before_install:
   - sudo rm /usr/local/bin/docker-compose
@@ -20,4 +20,7 @@ before_script:
  - npm install -g gulp
 
 script:
- - docker-compose -f docker-compose-test.yml  run test
+  - docker build -t $USERNAME/scraaam@version-1 .
+  - docker-compose -f docker-compose-test.yml  run test
+  - gulp test:all-non-e2e
+  - gulp coverage

@@ -16,8 +16,8 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker --version
-  - npm install
-  - npm install -g gulp
+  - npm install --silent
+  - npm install -g gulp --silent
 
 before_script:
  - export CHROME_BIN=chromium-browser

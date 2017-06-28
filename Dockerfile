@@ -6,10 +6,10 @@ WORKDIR /usr/src/dockerApp
 
 # Install app dependencies
 COPY package.json /usr/src/dockerApp/
-RUN npm install
+RUN npm install --silent
 
 #install gulp-cli
-RUN npm install --global gulp-cli
+RUN npm install --global gulp-cli --silent
 
 # Bundle app source
 COPY . /usr/src/dockerApp

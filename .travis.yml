@@ -22,7 +22,7 @@ before_script:
  - npm install -g gulp
 
 script:
-  - docker build --tag $USERNAME/Scraaam .
+  - docker build --tag $USERNAME/scraaam .
   - docker-compose -f docker-compose-test.yml  run test
   - gulp test:all-non-e2e
   - gulp coverage

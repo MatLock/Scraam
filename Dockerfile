@@ -7,14 +7,11 @@ RUN mkdir -p /usr/src/dockerApp
 WORKDIR /usr/src/dockerApp
   
 # Install app dependencies
-COPY package.json /usr/src/dockerApp/
+COPY . /usr/src/dockerApp/
 RUN npm install
 
 #install gulp-cli
 RUN npm install --global gulp-cli 
-
-RUN gulp build
-
 
 RUN gulp build
 

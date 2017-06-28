@@ -4,11 +4,15 @@ node_js:
 sudo: required
 services:
   - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
 
 before_install:
-  - sudo apt remove docker
-  - curl -fsSL https://get.docker.com/ | sh > /dev/null
-  
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
 before_script:
  - export CHROME_BIN=chromium-browser
  - export DISPLAY=:99.0
@@ -19,4 +23,4 @@ before_script:
 script:
  - gulp test:all-non-e2e
  - gulp coverage
- - gulp test:protractor
+ - docker-compose -f docker-compose-test.yml  run test

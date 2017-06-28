@@ -13,13 +13,13 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker --version
+  - npm install
+  - npm install -g gulp
 
 before_script:
  - export CHROME_BIN=chromium-browser
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
- - npm install
- - npm install -g gulp
 
 script:
   - docker build --tag $USERNAME/scraaam .

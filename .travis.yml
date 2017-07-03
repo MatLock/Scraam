@@ -25,7 +25,7 @@ before_script:
  - sh -e /etc/init.d/xvfb start
 
 script:
-  - docker build --tag $DOCKER_USERNAME/scraaam/$DOCKER_VERSION .
+  - docker build --tag $DOCKER_USERNAME/scraaam:$DOCKER_VERSION .
   - docker-compose -f docker-compose-test.yml  run test
   - gulp test:all-non-e2e
   - gulp coverage
@@ -33,5 +33,5 @@ script:
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-    docker push $DOCKER_USERNAME/scraaam/$DOCKER_VERSION;
+    docker push $DOCKER_USERNAME/scraaam:$DOCKER_VERSION;
     fi

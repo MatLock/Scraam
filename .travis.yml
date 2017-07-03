@@ -6,8 +6,8 @@ services:
   - docker
 env:
   - DOCKER_COMPOSE_VERSION=1.11.2
-cache: 
-  directories: 
+cache:
+  directories:
     - node_modules
 
 before_install:
@@ -29,3 +29,9 @@ script:
   - docker-compose -f docker-compose-test.yml  run test
   - gulp test:all-non-e2e
   - gulp coverage
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker push $DOCKER_USERNAME/scraaam/$DOCKER_VERSION;
+    fi
